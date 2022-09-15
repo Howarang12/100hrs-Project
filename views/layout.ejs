@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Workout Tracker</title>
+  <link rel="stylesheet" href="css/style.css">
+  <!-- bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+  <!-- bootstrap icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+  <!-- fontawesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <script src="js/main.js" defer></script>
+
+  <!-- bootstrap scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js" integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz" crossorigin="anonymous" defer></script>
+</head>
+<body>
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark py-3">
+    <div class="container-fluid">
+      <a href="/" class="navbar-brand">
+        <span class="fw-bold text-light">
+          Workout Tracker
+        </span>
+      </a>
+      <!-- toggle mobile nav -->
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#main-nav" aria-controls="main-nav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon text-light"></span>
+      </button>
+
+      <!-- navbar links -->
+      <div class="collapse navbar-collapse justify-content-end align-center" id="main-nav">
+        <ul class="navbar-nav text-center">
+          <li class="nav-item">
+            <a href="/" class="nav-link text-light">Home</a>
+          </li>
+          <li class="nav-item">
+            <a href="/profile" class="nav-link text-light">Profile</a>
+          </li>
+          <li class="nav-item px-2">
+            <!-- open login modal -->
+            <a href='#' class="btn btn-sm btn-secondary nav-link text-light" data-bs-toggle="modal" data-bs-target="#login-modal">Login</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- login modal -->
+  <div class="modal fade" id="login-modal" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered ">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="modalLabel">Login</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body my-2">
+          <!-- login form -->
+          <form action="/auth/login" method="get">
+            <div class="form-group">
+              <label for="email">Email address</label>
+              <input type="email" class="form-control mb-3" id="email" placeholder="name@email.com" required>
+            </div>
+
+            <div class="form-group">
+              <label for="password">Password</label>
+              <input type="password" class="form-control mb-3" id="password" required>
+            </div>
+
+            <div class="form-group d-grid gap-2">
+              <button type="submit" class="btn btn-secondary btn-lg mt-2">Login</button>
+              <span class="text-center">- or -</span>
+              <a href="#" class="btn btn-outline-dark btn-lg">Continue with <i class="bi bi-google"></i>oogle </a>
+            </div>
+            
+          </form>
+        </div>
+        <div class="modal-footer d-flex flex-column">
+          <span>Not a member? <a href="/user/register">Sign Up</a></span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <%- body %> 
+</body>
+
+<footer>
+
+</footer>
+</html>

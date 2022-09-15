@@ -1,0 +1,33 @@
+<div class="container pt-5 mt-5">
+  <form action="/user/register" method="post">
+    <div class="form-group">
+      <label for="username">Username</label>
+      <input type="username" class="form-control mb-3" id="username" required>
+    </div>
+    <div class="form-group">
+      <label for="email">Email Address</label>
+      <input type="email" class="form-control mb-3" id="email" placeholder="name@email.com" required>
+    </div>
+    <div class="form-group">
+      <label for="password">Password</label>
+      <input type="password" class="form-control mb-3" id="password" required>
+    </div>
+    <div class="form-group">
+      <label for="confirm-password">Confirm Password</label>
+      <input type="password" class="form-control mb-3" id="confirm-password" required>
+    </div>
+    <div class="form-group d-grid gap-2">
+      <button type="submit" class="btn btn-secondary btn-lg mt-2">
+        Login
+      </button>
+      <span class="text-center">
+        - or -
+      </span>
+      <a href="#" class="btn btn-outline-dark btn-lg">
+        Continue with <i class="bi bi-google"></i>oogle 
+      </a>
+    </div>
+  </form>
+  <p class="lead mt-5 text-center">Have an Account? <a href='#' class="" data-bs-toggle="modal" data-bs-target="#login-modal">Login</a></p>
+</div>
+
