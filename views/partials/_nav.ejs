@@ -2,7 +2,7 @@
   <div class="container-fluid">
     <a href="/" class="navbar-brand">
       <span class="fw-bold text-light">
-        100Hours Project (Name Pending)
+        Workout Tracker
       </span>
     </a>
     <!-- toggle mobile nav -->
@@ -41,15 +41,17 @@
         <form action="/auth/login" method="get">
           <div class="form-group">
             <label for="email">Email address</label>
-            <input type="email" class="form-control" id="email" placeholder="name@example.com">
+            <input type="email" class="form-control mb-3" id="email" placeholder="name@example.com">
           </div>
 
           <div class="form-group">
             <label for="password">Password</label>
-            <input type="password" class="form-control" id="password">
+            <input type="password" class="form-control mb-3" id="password">
           </div>
 
-          <button type="submit" class="btn btn-primary btn-block">Login</button>
+          <div class="d-grid">
+            <button type="submit" class="btn btn-primary btn-lg">Login</button>
+          </div>
         </form>
       </div>
       <div class="modal-footer d-flex flex-column">
