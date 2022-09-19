@@ -13,16 +13,23 @@ passport.use(
   clientSecret: process.env.GOOGLE_SECRET,
   callbackURL: '/auth/google/redirect',
 }, async (accessToken, refreshToken, profile, done) => {
-  //passport callback function
-
-  console.log('callback fired')
-  let newUser = await new User({
-    username: profile.displayName,
-    email: profile.emails[0].value,
-  }).save()
-  console.log('new user created: ' + newUser)
-  console.log(newUser.password)
-  done(null, newUser)
+  //check if user already exists in db
+  let currentUser = await User.findOne({googleId: profile.id})
+  if(currentUser) {
+    //already have the user
+    console.log('user is '+ currentUser)
+    done(null, currentUser)
+  } else {
+    //if not, create new user in db
+    let newUser = await new User({
+      username: profile.displayName,
+      email: profile.emails[0].value,
+      googleId: profile.id
+    }).save()
+    console.log('new user created: ' + newUser)
+    console.log(newUser.password)
+    done(null, newUser)
+  }
 
   })
 )
