@@ -19,7 +19,6 @@ passport.use(
   let newUser = await new User({
     username: profile.displayName,
     email: profile.emails[0].value,
-    password: ''
   }).save()
   console.log('new user created: ' + newUser)
   console.log(newUser.password)
