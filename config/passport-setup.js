@@ -3,7 +3,15 @@ const GoogleStrategy = require('passport-google-oauth20').Strategy
 const LocalStrategy = require('passport-local').Strategy
 const bcrypt = require('bcryptjs')
 const User = require('../models/user-model')
-require('dotenv').config()
+
+passport.serializeUser((user, done) => {
+  done(null, user.id);
+});
+
+passport.deserializeUser( async (id, done) => {
+  let user = await User.findById(id)
+  done(null, user)
+});
 
 //google strategy
 passport.use(
@@ -24,10 +32,10 @@ passport.use(
     let newUser = await new User({
       username: profile.displayName,
       email: profile.emails[0].value,
+      password: null,
       googleId: profile.id
     }).save()
     console.log('new user created: ' + newUser)
-    console.log(newUser.password)
     done(null, newUser)
   }
 
@@ -35,46 +43,31 @@ passport.use(
 )
 
 
-
-
-
 // local strategy
-passport.use(
-  new LocalStrategy({ usernameField: 'email '}, (email, password, done) => {
-  User.findOne({email: email})
-    .then(user => {
-      if(!user){
-        return done(null, false, {message: 'That email is not registered'})
+passport.use(new LocalStrategy({ 
+  passReqToCallback: true, 
+  usernameField: 'email' 
+}, 
+  (req, email, password, done) => {
+  User.findOne({ email: email.toLowerCase() }, (err, user) => {
+    if (err) { return done(err) }
+    if (!user) {
+      req.flash('error', `Email ${email} not found.`)
+      return done(null, false)
+    }
+    if (user && !user.password) {
+      req.flash('error', 'Your account was registered using a sign-in provider. Sign in through your provider')
+      return done(null, false)
+    }
+    //match password
+    bcrypt.compare(password, user.password, (err, isMatch) => {
+      if(err) throw err
+      if(isMatch) {
+        return done(null, user)
+      } else {
+        req.flash('error', 'Password incorrect')
+        return done(null, false)
       }
-
-      //match password
-      bcrypt.compare(password, user.password, (err, isMatch) => {
-        if(err) throw err
-        if(isMatch) {
-          return done(null, user)
-        } else {
-          return done(null, false, {message: 'Password incorrect'})
-        }
-      })
     })
+  })
 }))
-
-passport.serializeUser((user, done) => {
-  done(null, user.id);
-});
-
-passport.deserializeUser((id, done) => {
-  User.findById(id, function(err, user) {
-    done(err, user);
-  });
-});
-
-/**
- * Login Required middleware.
- */
- exports.isAuthenticated = (req, res, next) => {
-  if (req.isAuthenticated()) {
-    return next();
-  }
-  res.redirect('/login');
-};

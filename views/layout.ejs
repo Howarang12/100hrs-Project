@@ -67,8 +67,12 @@
             <a href="/profile" class="nav-link text-light">Profile</a>
           </li>
           <li class="nav-item px-2">
-            <!-- open login modal -->
-            <a href='#' class="btn btn-sm btn-secondary nav-link text-light" data-bs-toggle="modal" data-bs-target="#login-modal">Login</a>
+            <% if(user) {%> 
+              <a href='/auth/logout' class="btn btn-sm btn-secondary nav-link text-light">Logout</a>
+            <% } else { %> 
+              <!-- open login modal -->
+              <a href='#' class="btn btn-sm btn-secondary nav-link text-light" data-bs-toggle="modal" data-bs-target="#login-modal">Login</a>
+            <% } %> 
           </li>
         </ul>
       </div>
@@ -88,21 +92,38 @@
           <!-- login form -->
           <form action="/user/login" method="get">
             <div class="form-group">
-              <label for="email">Email address</label>
-              <input type="email" class="form-control mb-3" id="email" placeholder="name@email.com" required>
+              <label for="email">Email Address</label>
+              <input 
+                type="email" 
+                class="form-control mb-3" 
+                id="email" name="email" 
+                placeholder="name@email.com" 
+                value="<%= typeof email != 'undefined' ? email : '' %>"
+                required
+              />
             </div>
-
             <div class="form-group">
               <label for="password">Password</label>
-              <input type="password" class="form-control mb-3" id="password" required>
+              <input 
+                type="password" 
+                class="form-control mb-3" 
+                id="password" 
+                name="password" 
+                value="<%= typeof password != 'undefined' ? password : '' %>"
+                required
+              />
             </div>
-
             <div class="form-group d-grid gap-2">
-              <button type="submit" class="btn btn-secondary btn-lg mt-2">Login</button>
-              <span class="text-center">- or -</span>
-              <a href="/auth/google" class="btn btn-outline-dark btn-lg">Continue with <i class="bi bi-google"></i>oogle </a>
+              <button type="submit" class="btn btn-secondary btn-lg mt-2">
+                Login
+              </button>
+              <span class="text-center">
+                - or -
+              </span>
+              <a href="/auth/google" class="btn btn-outline-dark btn-lg">
+                Continue with <i class="bi bi-google"></i>oogle 
+              </a>
             </div>
-            
           </form>
         </div>
         <div class="modal-footer d-flex flex-column">

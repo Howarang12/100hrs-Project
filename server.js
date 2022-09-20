@@ -5,10 +5,11 @@ const mongoose = require('mongoose')
 const flash = require('connect-flash')
 const session = require('express-session')
 const MongoStore = require('connect-mongo')
+require('dotenv').config()
 const passport = require('passport')
 const passportSetup = require('./config/passport-setup')
-require('dotenv').config()
 
+//initialize app
 const app = express()
 
 // connect mongodb
@@ -33,10 +34,6 @@ app.use(session({
   store: MongoStore.create({ mongoUrl: process.env.MONGO_URI })
 }))
 
-//initialize passport
-app.use(passport.initialize())
-app.use(passport.session())
-
 // connect flash
 app.use(flash())
 
@@ -48,9 +45,14 @@ app.use((req, res, next) => {
   next()
 })
 
+//initialize passport
+app.use(passport.initialize())
+app.use(passport.session())
+
 // routes
 app.use('/', require('./routes/home-routes'))
 app.use('/user', require('./routes/user-route'))
 app.use('/auth', require('./routes/auth-routes'))
+app.use('/profile', require('./routes/profile-routes'))
 
 app.listen(3000, console.log('Server running...'))

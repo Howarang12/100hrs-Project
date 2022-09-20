@@ -1,14 +1,12 @@
-const express = require('express')
-const router = express.Router()
+const router = require('express').Router()
 const bcrypt = require('bcryptjs')
 const passport = require('passport')
 //User model
 const User = require('../models/user-model')
 
-
 // register page
 router.get('/register', (req, res) => {
-  res.render('register')
+  res.render('register', {user: req.user})
 })
 
 // register handler
@@ -33,7 +31,8 @@ router.post('/register', async (req, res) => {
         username,
         email,
         password,
-        password2
+        password2,
+        user: req.user
       }
     )
   } else {
@@ -47,7 +46,8 @@ router.post('/register', async (req, res) => {
           username,
           email,
           password,
-          password2
+          password2,
+          user: req.user
         }
       )
       } else {
@@ -66,7 +66,7 @@ router.post('/register', async (req, res) => {
             try{
               await newUser.save()
               req.flash('success_msg', 'You are now registered and can log in')
-              res.redirect('/')
+              res.redirect('/profile/')
             } catch (err) {
               console.log(err)
             }
@@ -81,9 +81,10 @@ router.post('/register', async (req, res) => {
 
 //login
 router.get('/login', (req, res, next) => {
+  let errors = req.flash().error || []
   passport.authenticate('local', {
-    successRedirect:'/dashboard',
-    failureRedirect:'/',
+    successRedirect:'/profile/',
+    failureRedirect:'/auth/login',
     failureFlash: true
   }) (req, res, next)
 })

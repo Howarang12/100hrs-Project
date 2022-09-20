@@ -3,23 +3,28 @@ const passport = require('passport')
 
 //auth login
 router.get('/login', (req, res) => {
-  res.render('login-page')
+  res.render('login', {user: req.user })
 })
 
 //auth logout 
-router.get('/logout', (req, res) => {
+router.get('/logout', (req, res, next) => {
   //handle with passport
-  res.send('logging out')
+  req.logout(err => {
+    if (err) { return next(err) }
+    res.redirect('/')
+  })
+  res.redirect('/')
 })
 
 //auth with google
 router.get('/google', passport.authenticate('google', {
-  scope: ['profile', 'email']
+  scope: ['profile', 'email'],
+  prompt: 'select_account'
 }))
 
 // callback route for google to redirect to
 router.get('/google/redirect', passport.authenticate('google'), (req, res) => {
-  res.send('callback uri reached')
+  res.redirect('/profile/')
 })
 
 module.exports = router
