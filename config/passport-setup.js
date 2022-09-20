@@ -48,26 +48,50 @@ passport.use(new LocalStrategy({
   passReqToCallback: true, 
   usernameField: 'email' 
 }, 
-  (req, email, password, done) => {
-  User.findOne({ email: email.toLowerCase() }, (err, user) => {
-    if (err) { return done(err) }
-    if (!user) {
-      req.flash('error', `Email ${email} not found.`)
-      return done(null, false)
-    }
-    if (user && !user.password) {
-      req.flash('error', 'Your account was registered using a sign-in provider. Sign in through your provider')
-      return done(null, false)
-    }
-    //match password
-    bcrypt.compare(password, user.password, (err, isMatch) => {
-      if(err) throw err
-      if(isMatch) {
-        return done(null, user)
-      } else {
-        req.flash('error', 'Password incorrect')
+  async (req, email, password, done) => {
+    try{
+      let user = await User.findOne({ email: email.toLowerCase()})
+      if (!user) {
+        req.flash('error', `Email ${email} not found.`)
         return done(null, false)
       }
-    })
-  })
+      if (user && !user.password) {
+        req.flash('error', 'Your account was registered using a sign-in provider. Sign in through your provider')
+        return done(null, false)
+      }
+      //match password
+      bcrypt.compare(password, user.password, (err, isMatch) => {
+        if(err) throw err
+        if(isMatch) {
+          return done(null, user)
+        } else {
+          req.flash('error', 'Password incorrect')
+          return done(null, false)
+        }
+      })
+      
+    } catch (err){
+      return done(err)
+    }
+  // User.findOne({ email: email.toLowerCase() }, (err, user) => {
+  //   if (err) { return done(err) }
+  //   if (!user) {
+  //     req.flash('error', `Email ${email} not found.`)
+  //     return done(null, false)
+  //   }
+  //   if (user && !user.password) {
+  //     req.flash('error', 'Your account was registered using a sign-in provider. Sign in through your provider')
+  //     return done(null, false)
+  //   }
+  //   //match password
+  //   bcrypt.compare(password, user.password, (err, isMatch) => {
+  //     if(err) throw err
+  //     if(isMatch) {
+  //       return done(null, user)
+  //     } else {
+  //       req.flash('error', 'Password incorrect')
+  //       return done(null, false)
+  //     }
+  //   })
+  // })
 }))
