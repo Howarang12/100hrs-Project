@@ -70,11 +70,8 @@ router.post('/register', async (req, res) => {
             } catch (err) {
               console.log(err)
             }
-            
         }))
-
       }
-      
   }
 })
 
