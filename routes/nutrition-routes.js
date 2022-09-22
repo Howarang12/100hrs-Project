@@ -12,7 +12,7 @@ router.post('/search', async (req, res) => {
     api_key: process.env.FOOD_API_KEY,
     query: req.body.search,
     dataType: ['Survey (FNDDS)'],
-    pagesize: 1
+    pagesize: 10
   }
 
   const api_url = `https://api.nal.usda.gov/fdc/v1/foods/search?api_key=${encodeURIComponent(params.api_key)}&query=${encodeURIComponent(params.query)}&dataType=${encodeURIComponent(params.dataType)}&pageSize=${encodeURIComponent(params.pagesize)}`

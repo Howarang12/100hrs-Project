@@ -15,14 +15,24 @@
   </form>
 </div>
 
-<div class="container mt-5">
+<div class="container mt-5 d-flex flex-column justify-content-center">
   <% foods.forEach( food => {%> 
-    <div class="container">
-      <h5><%= food.description  %></h5>
+    <table class="table-bordered table-responsive mb-5">
+      <h5 class="text-center"><%= food.description  %></h5>
+      <thead>
+        <tr>
+          <th class="text-center">Nutrient</th>
+          <th class="text-center">Value</th>
+        </tr>
+      </thead>
       <% food.foodNutrients.forEach( nutrient => { %>
-          <p><%= nutrient.nutrientName  %></p>
-          <p><%= nutrient.value %> <%= nutrient.unitName %>  </p>
+      <tbody>
+        <tr>
+          <td><%= nutrient.nutrientName  %></td>
+          <td><%= nutrient.value %> <%= nutrient.unitName %>  </td>
+        </tr>
+      </tbody>
       <% }) %> 
-    </div>
+    </table>
   <% }) %> 
 </div>
