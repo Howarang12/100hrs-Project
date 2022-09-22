@@ -25,7 +25,6 @@ passport.use(
   let currentUser = await User.findOne({googleId: profile.id})
   if(currentUser) {
     //already have the user
-    console.log('user is '+ currentUser)
     done(null, currentUser)
   } else {
     //if not, create new user in db
@@ -35,7 +34,6 @@ passport.use(
       password: null,
       googleId: profile.id
     }).save()
-    console.log('new user created: ' + newUser)
     done(null, newUser)
   }
 
@@ -70,28 +68,7 @@ passport.use(new LocalStrategy({
         }
       })
       
-    } catch (err){
+    } catch(err) {
       return done(err)
     }
-  // User.findOne({ email: email.toLowerCase() }, (err, user) => {
-  //   if (err) { return done(err) }
-  //   if (!user) {
-  //     req.flash('error', `Email ${email} not found.`)
-  //     return done(null, false)
-  //   }
-  //   if (user && !user.password) {
-  //     req.flash('error', 'Your account was registered using a sign-in provider. Sign in through your provider')
-  //     return done(null, false)
-  //   }
-  //   //match password
-  //   bcrypt.compare(password, user.password, (err, isMatch) => {
-  //     if(err) throw err
-  //     if(isMatch) {
-  //       return done(null, user)
-  //     } else {
-  //       req.flash('error', 'Password incorrect')
-  //       return done(null, false)
-  //     }
-  //   })
-  // })
 }))

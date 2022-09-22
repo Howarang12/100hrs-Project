@@ -23,7 +23,7 @@ app.set('view engine', 'ejs')
 app.use(express.static('public'))
 
 // bodyparser
-app.use(express.urlencoded({ extended: false }))
+app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 
 // Express Session
@@ -54,5 +54,6 @@ app.use('/', require('./routes/home-routes'))
 app.use('/user', require('./routes/user-route'))
 app.use('/auth', require('./routes/auth-routes'))
 app.use('/profile', require('./routes/profile-routes'))
+app.use('/nutrition', require('./routes/nutrition-routes'))
 
 app.listen(3000, console.log('Server running...'))

@@ -1,0 +1,28 @@
+<div class="container mt-5">
+  <form action="/nutrition/search" method="post">
+    <div class="input-group mb-3">
+      <input 
+        type="text" 
+        class="form-control" 
+        name="search"
+        placeholder="Look up a food" 
+        aria-label="Look up a food" 
+      >
+      <div class="input-group-append">
+        <button class="btn btn-secondary" type="submit">Search</button>
+      </div>
+    </div>
+  </form>
+</div>
+
+<div class="container mt-5">
+  <% foods.forEach( food => {%> 
+    <div class="container">
+      <h5><%= food.description  %></h5>
+      <% food.foodNutrients.forEach( nutrient => { %>
+          <p><%= nutrient.nutrientName  %></p>
+          <p><%= nutrient.value %> <%= nutrient.unitName %>  </p>
+      <% }) %> 
+    </div>
+  <% }) %> 
+</div>
