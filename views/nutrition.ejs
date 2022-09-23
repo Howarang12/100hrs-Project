@@ -5,7 +5,7 @@
         type="text" 
         class="form-control" 
         name="search"
-        placeholder="Look up a food" 
+        placeholder="Look up a food, values are per 100g serving of food" 
         aria-label="Look up a food" 
       >
       <div class="input-group-append">
@@ -25,14 +25,14 @@
           <th class="text-center">Value</th>
         </tr>
       </thead>
-      <% food.foodNutrients.forEach( nutrient => { %>
+      <% for(let i = 0; i < 4; i++){%>
       <tbody>
         <tr>
-          <td><%= nutrient.nutrientName  %></td>
-          <td><%= nutrient.value %> <%= nutrient.unitName %>  </td>
+          <td><%= food.foodNutrients[i].nutrientName %></td>
+          <td><%= food.foodNutrients[i].value %> <%= food.foodNutrients[i].unitName %>  </td>
         </tr>
       </tbody>
-      <% }) %> 
+      <% } %> 
     </table>
   <% }) %> 
 </div>
