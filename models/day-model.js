@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
-import {format} from 'date-fns'
+
 
 const daySchema = new Schema({
   userId: {
@@ -9,7 +9,7 @@ const daySchema = new Schema({
   },
   date:{
     type: Date,
-    default: format(Date.now)
+    default: Date.now
   },
   foods: [{
     type: mongoose.Schema.Types.ObjectId,
@@ -18,5 +18,6 @@ const daySchema = new Schema({
 })
 
 const Day = mongoose.model('day', daySchema)
+
 
 module.exports = Day

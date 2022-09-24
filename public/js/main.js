@@ -1,0 +1,1 @@
+ let servingMultiplier = document.querySelector('#serving').value/100 
