@@ -9,7 +9,7 @@ const daySchema = new Schema({
   },
   date:{
     type: Date,
-    default: Date.now
+    default: Date.now()
   },
   foods: [{
     type: mongoose.Schema.Types.ObjectId,

@@ -3,9 +3,9 @@ const router = express.Router()
 const User = require('../models/user-model')
 const Food = require('../models/food-model')
 const Day = require('../models/day-model')
-const { format } = require('date-fns')
+const { format, startOfToday, endOfToday } = require('date-fns')
 
-let today = format(new Date(), "yyyy-MM-dd")
+let todayDate = format(new Date(), "yyyy-MM-dd")
 
 
 router.get('/', (req, res) => {
@@ -37,7 +37,7 @@ router.post('/search', async (req, res) => {
 
 router.post('/add-food', async (req, res) => {
   
-  const food = new Food({
+  const food = await new Food({
     name: req.body.name,
     serving: req.body.serving,
     protein: req.body.protein,
@@ -46,25 +46,25 @@ router.post('/add-food', async (req, res) => {
     calories: req.body.calories
   }).save()
 
-  const today = await Day.find({id: req.user.id, date: format(new Date(), "yyyy-MM-dd")})
-  if(today){
-    today.foods.push(food)
-    await today.save(function(err){
-    if(err) console.log(err)
-    res.redirect('/profile')
+  const today = await Day.findOneAndUpdate({
+    userId: req.user.id, 
+    date: {
+      $gte: startOfToday(),
+      $lt: endOfToday()
+    }
+  }, {
+    $push: {foods: food.id}
+  }, {
+    upsert: true
   })
-  } else{
-    today = new Day({
-      userId: req.user.id,
-      date: format(new Date(), "yyyy-MM-dd"),
-      foods:[food]      
-    })
 
-    await today.save(function(err){
-      if(err) console.log(err)
-      res.redirect('/profile')
-    })
-  } 
+  // today.foods.push(food)
+  // await today.save(function(err){
+  // if(err) console.log(err)
+  // res.redirect('/profile')
+  // })
+  res.redirect('/profile')
+
 })
 
 
