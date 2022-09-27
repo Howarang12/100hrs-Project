@@ -1,44 +1,44 @@
 <div class="container">
-  <h1 class="mt-4">Welcome <%= user.username %> </h1>
+  <h1 class="mt-4 display-4">Welcome <%= user.username %>, here is what you had today </h1>
   
   <form action="/profile/get-day" method="post">
-    <input type="date" id="day" name="day">
-    <button type="submit" class="btn btn-secondary">Get day</button>
+    <input type="date" id="day" name="day" class="form-control my-3">
+    <div class="form-group d-grid gap-2">
+      <button type="submit" class="btn btn-secondary">Get Day</button>
+    </div>
   </form>
 
-  <% if(today){ %>
-    <% foods.filter(food => today.foods.includes(food.id)).forEach( item => { %>
+  <% if(day){ %>
+    <% foods.filter(food => day.foods.includes(food.id)).forEach( item => { %>
       <form action="" class="my-5">
         <table class="table table-sm table-striped">
           <thead class="thead-light">
             <tr>
-              <th><%= item.name %> </th>
+              <th class="display-6"><%= item.name %> </th>
               <td>
-                <button type="submit" class="btn btn-danger">
-                  <i class="fa fa-trash"></i>
-                </button>
+                  <button  class="delete-food-btn btn btn-danger fa fa-trash" data-id= "<%= item.id%>"></button>
               </td>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <th>Serving </th>
+              <th class="lead">Serving </th>
               <td><%= item.serving %> G</td>
             </tr>
             <tr>
-              <th>Protein </th>
+              <th class="lead">Protein </th>
               <td><%= item.protein %> G</td>
             </tr>
             <tr>
-              <th>Fat </th>
+              <th class="lead">Fat </th>
               <td><%= item.fat %> G</td>
             </tr>
             <tr>
-              <th>Carbohydrates </th>
+              <th class="lead">Carbohydrates </th>
               <td><%= item.carbohydrate %> G</td>
             </tr>
             <tr>
-              <th>Energy </th>
+              <th class="lead">Energy </th>
               <td><%= item.calories %> kcal</td>
             </tr>
           </tbody>

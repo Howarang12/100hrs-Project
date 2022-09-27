@@ -14,8 +14,10 @@ router.post('/get-day', async (req, res) => {
       $lt: endOfDay(new Date(dayValues))
     }
   })
-  console.log(day)
-  res.redirect('/profile')
+
+  const foods = await Food.find()
+
+  res.render('profile', {user: req.user, day, foods})
 })
 
 router.get('/', authCheck.ensureAuth,  async (req, res) => {
@@ -29,7 +31,7 @@ router.get('/', authCheck.ensureAuth,  async (req, res) => {
 
   const foods = await Food.find()
 
-  res.render('profile', {user: req.user, today, foods})
+  res.render('profile', {user: req.user, day: today, foods})
 })
 
 module.exports = router

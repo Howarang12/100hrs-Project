@@ -60,25 +60,25 @@
       <!-- navbar links -->
       <div class="collapse navbar-collapse justify-content-end align-center" id="main-nav">
         <ul class="navbar-nav text-center">
-          <li class="nav-item">
+          <li class="nav-item lead">
             <a href="/" class="nav-link text-dark">Home</a>
           </li>
           <% if(user) {%> 
-          <li class="nav-item">
+          <li class="nav-item lead">
             <a href="/nutrition" class="nav-link text-dark">Nutrition</a>
           </li>
-          <li class="nav-item">
+          <li class="nav-item lead">
             <a href="/profile" class="nav-link text-dark">Profile</a>
           </li>
-          <li class="nav-item px-2">
+          <li class="nav-item px-2 lead">
             <a href='/auth/logout' class="btn btn-sm btn-secondary nav-link text-light">Logout</a>
           </li> 
           <% } else { %> 
               <!-- open login modal -->
-            <li class="nav-item px-2">
+            <li class="nav-item px-2 lead">
               <a href='/auth/login' class="btn btn-sm btn-secondary nav-link text-light">Login</a>
             </li>  
-            <li class="nav-item px-2">
+            <li class="nav-item px-2 lead">
               <a href='/user/register' class="btn btn-sm btn-outline-secondary nav-link text-dark">Sign Up</a>
             </li>
           <% } %> 
@@ -89,6 +89,7 @@
   </nav>
 
   <%- body %> 
+  <script src="js/main.js"></script>
 </body>
 
 <footer>

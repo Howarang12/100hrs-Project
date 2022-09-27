@@ -1,5 +1,6 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
+const Food = require('./food-model')
 
 
 const daySchema = new Schema({
@@ -16,6 +17,13 @@ const daySchema = new Schema({
     ref: 'food'
   }]
 })
+
+daySchema.post('remove', removeLinkedDocuments)
+
+function removeLinkedDocuments(doc) {
+  // doc will be the removed food document
+  Food.remove({_id: { $in: doc.foods }})
+}
 
 const Day = mongoose.model('day', daySchema)
 

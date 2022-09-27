@@ -7,6 +7,7 @@ const MongoStore = require('connect-mongo')
 require('dotenv').config()
 const passport = require('passport')
 const passportSetup = require('./config/passport-setup')
+const methodOverride = require('method-override')
 
 //initialize app
 const app = express()
@@ -35,6 +36,9 @@ app.use(session({
 
 // connect flash
 app.use(flash())
+
+//Use forms for put / delete
+app.use(methodOverride("_method"));
 
 // Global Vars
 app.use((req, res, next) => {

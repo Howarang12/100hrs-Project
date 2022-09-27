@@ -58,13 +58,14 @@ router.post('/add-food', async (req, res) => {
     upsert: true
   })
 
-  // today.foods.push(food)
-  // await today.save(function(err){
-  // if(err) console.log(err)
-  // res.redirect('/profile')
-  // })
   res.redirect('/profile')
 
+})
+
+router.delete('/delete-food', async (req, res) => {
+  // await Food.findByIdAndDelete({id: req.body.foodId})
+  // res.json('Deleted food')
+  console.log(req.body)
 })
 
 
