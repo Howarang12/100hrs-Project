@@ -1,5 +1,51 @@
-<h1 class="mt-4">Welcome <%= user.username %> </h1>
+<div class="container">
+  <h1 class="mt-4">Welcome <%= user.username %> </h1>
+  
+  <form action="/profile/get-day" method="post">
+    <input type="date" id="day" name="day">
+    <button type="submit" class="btn btn-secondary">Get day</button>
+  </form>
 
-<form action="" method="get">
-  <input type="date">
-</form>
+  <% if(today){ %>
+    <% foods.filter(food => today.foods.includes(food.id)).forEach( item => { %>
+      <form action="" class="my-5">
+        <table class="table table-sm table-striped">
+          <thead class="thead-light">
+            <tr>
+              <th><%= item.name %> </th>
+              <td>
+                <button type="submit" class="btn btn-danger">
+                  <i class="fa fa-trash"></i>
+                </button>
+              </td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th>Serving </th>
+              <td><%= item.serving %> G</td>
+            </tr>
+            <tr>
+              <th>Protein </th>
+              <td><%= item.protein %> G</td>
+            </tr>
+            <tr>
+              <th>Fat </th>
+              <td><%= item.fat %> G</td>
+            </tr>
+            <tr>
+              <th>Carbohydrates </th>
+              <td><%= item.carbohydrate %> G</td>
+            </tr>
+            <tr>
+              <th>Energy </th>
+              <td><%= item.calories %> kcal</td>
+            </tr>
+          </tbody>
+        </table>
+      </form>
+
+    <% }) %> 
+  <% } %> 
+  
+</div>
